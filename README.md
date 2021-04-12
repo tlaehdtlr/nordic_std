@@ -125,3 +125,15 @@ nrfjprog -f nrf52 --reset --program [hex 파일] --chiperase --verify
 ## 프로젝트 구성
 
 - `.emProject` 파일에 경로 등이 저장 맞나?
+
+
+
+
+
+
+
+# BLE 개발
+
+- BLE 이해 : http://www.hardcopyworld.com/gnuboard5/bbs/board.php?bo_table=lecture_iot&wr_id=11
+  - link layer 의 software 레벨에서 블루투스 기기간 통신 및 연결 상태 관리한대
+  - 
