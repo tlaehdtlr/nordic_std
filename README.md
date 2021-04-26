@@ -1,6 +1,43 @@
 # Nordic
 
 - nRF52833 DK board, PCA10100
+- pca 넘버는 SDK 에서 nRF52833 을 가르키는 번호일 것 같음
+
+#### 참고
+
+- nRF52833 DK
+
+  ```
+  https://infocenter.nordicsemi.com/index.jsp?topic=%2Fcomp_matrix_nrf52833%2FCOMP%2Fnrf52833%2Fnrf52833_comp_matrix.html
+  ```
+
+  
+
+- nRF Connect SDK 에 관해서
+
+  ```
+  https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/index.html
+  ```
+
+  ![image-20210420113307112](README.assets/image-20210420113307112.png)
+
+- SoftDevice
+
+  ```
+  https://infocenter.nordicsemi.com/topic/struct_nrf52/struct/s140.html
+  ```
+
+  
+
+- nRF Tools
+
+  ```
+  https://infocenter.nordicsemi.com/index.jsp?topic=%2Fstruct_nrftools%2Fstruct%2Fnrftools.html&cp=9
+  ```
+
+  
+
+- nFR52833_OPS_v0.7.pdf 에 memory map 이 있음 peripheral 들이 있다
 
 
 
@@ -17,32 +54,221 @@
 - 다양한 examples
 - base code? driver? 여튼 우리가 세팅하지 않아도 여기에서 한걸루 쓰면 된다
 
+##### SDK 사용하기 위해서 해야할 일
 
+- segger IDE 사용할 때(빌드하기 위해 매크로 추가)
 
-#### 빌드 디렉토리 변경
+  - Tools - options - building - global macros
 
-- SDK 적용하기 위함(<SDK_Install> 경로내에서만 사용 가능)
-- 환경 변수 설정 및 global macro 사용
+    - 변수명 = (경로)/nRF5_SDK_17.0.0_9d13099
+    - 나는 `SDK_PATH=D:/nRF5_SDK_17.0.0_9d13099`
+      ![image-20210426204251691](README.assets/image-20210426204251691.png)
 
-##### segger IDE
+  - .emProject 에서 경로 수정 `$(변수명)`
 
-- SDK 관련 global macro 추가
-
-  - Tools > Options > Building > Global Macros
-
-  - Noric sdk path 입력
-
-    - ```
-      NORDIC_SDK_PATH=D:/Nordic/nRF5_SDK/nRF5_SDK_17.0.0_9d13099
-      ```
-
-- `.emProject` 파일 수정
-
-  - ```
-    ../../../../../.. → $(NORDIC_SDK_PATH)로 변경
+    ```
+    <file file_name="$(SDK_PATH)/components/libraries/log/src/nrf_log_backend_rtt.c" />
     ```
 
-#### Memory map 설정
+    
+
+- 다른 IDE 를 쓰면 빌드 방법이 다를테니 다른 방법 써야해 환경변수 바꿔주기도 하더라
+
+
+
+#### SDK 기반 프로젝트 생성 방법
+
+- 여러 가지가 있다
+
+  - **SDK 를 사용자 로컬에 저장, 매크로를 이용해서 경로를 설정, emProject 수정**
+
+  - SDK 파일들을 프로젝트 만들 때마다 추가
+
+  - 전체 폴더를 깃으로 관리하고 바로 하위에 SDK 한 번 올리고 프로젝트들 생성하거나
+
+    ```
+    total/
+    	SDK/
+    	PJT1/
+    	PJT2/
+    	...
+    ```
+
+##### 
+
+
+
+#### sdk_config.h 수정 쉽게 하기 위해 CMSIS-Configuration-wizard 사용
+
+- sdk_config.h 는 peripheral 기능 설정하는 곳이고 수정이 잦음
+
+- https://firepooh.tistory.com/entry/BLE-SEGGER-Studio-CMSIS-Configuration-Wizard-sdkconfigh
+
+- File-Open Studio Folder..-External Tools Configuration
+  `<item></item>` 추가
+
+  ```xml
+  <if host_os="win">
+      <item name="Tool.PClint">
+  	...
+      </item>
+      
+      <item name="Tool.CMSIS_Config_Wizard" wait="no">
+        <menu>&amp;CMSIS Configuration Wizard</menu>
+        <text>CMSIS Configuration Wizard</text>
+        <tip>Open a configuration file in CMSIS Configuration Wizard</tip>
+        <key>Ctrl+Y</key>
+        <match>*config*.h</match>
+        <message>CMSIS Config</message>
+        <commands>
+          java -jar &quot;$(CMSIS_CONFIG_TOOL)&quot; &quot;$(InputPath)&quot;
+        </commands>
+      </item>
+      
+      
+    </if>
+  ```
+
+  
+
+
+
+## 프로젝트 구성
+
+- `.emProject` 파일에 경로 등이 저장 맞나?
+
+
+
+
+
+# Peripheral 예제
+
+## 0. 프리컴파일 된 예제 돌려보기
+
+#### pca10100 LED Toggle
+
+- segger IDE, SDK 설치
+- nRF5_SDK_17.0.0_9d13099\examples\peripheral\blinky\pca10100e\blank\ses 에서 `emProject` 파일 열어서 build & run 확인
+  - 또는 segger 열고 project - add existing project 로 열어주기 가능
+
+
+
+## 1. 프로젝트 생성
+
+#### 참고
+
+- https://igotit.tistory.com/2308 이 글에서 활용 1. 유튜브 참고
+
+#### 프로젝트 폴더와 상관없이 로컬에 저장한 SDK 이용하는 방법 쓸거다
+
+- 내가 원하는 경로에 SDK 파일 압축 풀기
+
+##### blinky 프로젝트를 내걸로 바꾸기!!!
+
+- 폴더 준비
+  ![image-20210426204506491](README.assets/image-20210426204506491.png)
+
+  - 프로젝트 파일 3개 복사 -> IDE_SES 붙여넣기
+    ![image-20210426204554327](README.assets/image-20210426204554327.png)
+  - `nRF5_SDK_17.0.0_9d13099\examples\peripheral\blinky` 의 main.c
+    `nRF5_SDK_17.0.0_9d13099\examples\peripheral\blinky\pca10100e\blank\config` 의 sdk_config.h 
+    2개 파일 복사 -> SRC 에 붙여넣기
+  - 요러고 빌드 하면 에러뜸
+  - project의 option - common - code - preprocessor - user include directions 확인해보면 경로들이 내가 원하는게 아니거든
+- **그래서 프로젝트의 매크로를 건드리거나 또는 나 같은 경우는 글로벌 매크로 건드림**
+  `Tools - options - building - global macros` 위에 설명있음
+  - 그리고 .emProject 에서 경로를 바꿔준다
+    ![image-20210426205721972](README.assets/image-20210426205721972.png)
+  - 그리고 이것도 main.c 와 sdk_config.h 도 까먹지 말것
+    ![image-20210426205807569](README.assets/image-20210426205807569.png)
+  - 솔루션, 프로젝트 이름도 다 바꿨다
+- 마지막으로 요것도 해줘야해
+  ![image-20210426210025706](README.assets/image-20210426210025706.png)
+
+
+
+
+
+#### 포팅?
+
+#### 다른 보드에서 SDK 사용
+
+- 데모 보드랑 달리 별로 제작 보드는 custom_board.h 에 정의해서 사용할 것!
+
+  - components\boards 에 보드 설정 관련 header 파일 (boards.h)
+
+    ```c
+    #elif defined(BOARD_CUSTOM)
+      #include "custom_board.h"
+    ```
+
+    요 부분이 활성화되면 되게끔?
+
+- 
+
+
+
+## 1. GPIO
+
+### LED 제어
+
+#### SDK 분석
+
+- nRF5_SDK_17.0.0_9d13099\examples\peripheral\blinky\pca10100e
+
+- ```c
+  #include "nrf_delay.h"
+  
+  // 이 함수 사용가는한데
+  nrf_delay_ms(500);
+  
+  // 저거 타고 들어가보면 us 함수가 나옴 us 딜레이 함수도 구현이 되어있구만?
+  nrf_delay_us(1000); 
+  ```
+
+- ```c
+  #include "boards.h"
+  //여기에서 어떤 mcu 확인하여서 거기에 맞는 pin을 정의한 헤더파일을 가져온다
+  #elif defined(BOARD_PCA10100)
+  #include "pca10100.h"
+  ```
+
+  - pca10100.h
+    ![image-20210426094856119](README.assets/image-20210426094856119.png)
+
+    여기를 보면 어떤 핀들이 정의되어있는지 확인이 가능해진다
+
+- boards.c
+
+  - bsp_board_init()
+    - bsp_board_leds_init(), bsp_board_buttons_init()
+      - nrf_gpio_cfg_output() 이 함수를 통해 
+
+  ```c
+  //bsp_board_init 여기서
+  ```
+
+  
+
+#### Pinmap
+
+- 
+
+#### code
+
+
+
+## 2. UART
+
+
+
+
+
+# BLE 개발
+
+- BLE 이해 : http://www.hardcopyworld.com/gnuboard5/bbs/board.php?bo_table=lecture_iot&wr_id=11
+  - link layer 의 software 레벨에서 블루투스 기기간 통신 및 연결 상태 관리한대
+  - 
 
 
 
@@ -70,7 +296,7 @@
     ```
 
   - ```
-    nrfutil settings generate --family NRF52 --application imedisync_ble.hex --app-boot-validation VALIDATE_GENERATED_CRC --application-version 1 --bootloader-version 1 --softdevice s140_nrf52_7.0.1_softdevice.hex --bl-settings-version 2 n100_bl_settings.hex
+    nrfutil settings generate --family NRF52 --application imedisync_ble.hex --app-boot-validation VALIDATE_GENERATED_CRC --application-version 1 --bootloader-version 1 --softdevice s140_nrf52_7.0.1_softdevice.hex --bl-settings-version 2 n100_ble_settings.hex
     ```
 
 - total image 생성
@@ -80,7 +306,7 @@
     ```
 
   - ```
-    mergehex -m imedisync_ble_secure_bootloader_s140.hex imedisync_ble.hex n100_bl_settings.hex s140_nrf52_7.0.1_softdevice.hex -o n100_total.hex
+    mergehex -m imedisync_ble_secure_bootloader_s140.hex imedisync_ble.hex n100_ble_settings.hex s140_nrf52_7.0.1_softdevice.hex -o n100_total.hex
     ```
 
   - 이거할 때, nrf_command_line_tools 버전이 10.9는 [bootloader setting hex] 파일 받는 인자가 없어서 10.12.1 로 업그레이드 함
@@ -118,22 +344,3 @@ nrfjprog -f nrf52 --reset --program [hex 파일] --chiperase --verify
   - dongle 찾고 scan -> connect -> dfu 눌러서 파일 찾아서 업뎃
     ![image-20210401150517897](README.assets/image-20210401150517897.png)
 
-
-
-
-
-## 프로젝트 구성
-
-- `.emProject` 파일에 경로 등이 저장 맞나?
-
-
-
-
-
-
-
-# BLE 개발
-
-- BLE 이해 : http://www.hardcopyworld.com/gnuboard5/bbs/board.php?bo_table=lecture_iot&wr_id=11
-  - link layer 의 software 레벨에서 블루투스 기기간 통신 및 연결 상태 관리한대
-  - 
