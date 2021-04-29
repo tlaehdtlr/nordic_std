@@ -255,62 +255,6 @@ https://igotit.tistory.com/244
 
 
 
-## 3. GPIO
-
-### LED 제어
-
-### Button
-
-#### SDK 분석
-
-- nRF5_SDK_17.0.0_9d13099\examples\peripheral\blinky\pca10100e
-
-- ```c
-  #include "nrf_delay.h"
-  
-  // 이 함수 사용가는한데
-  nrf_delay_ms(500);
-  
-  // 저거 타고 들어가보면 us 함수가 나옴 us 딜레이 함수도 구현이 되어있구만?
-  nrf_delay_us(1000); 
-  ```
-
-- ```c
-  #include "boards.h"
-  //여기에서 어떤 mcu 확인하여서 거기에 맞는 pin을 정의한 헤더파일을 가져온다
-  #elif defined(BOARD_PCA10100)
-  #include "pca10100.h"
-  ```
-
-  - pca10100.h
-    ![image-20210426094856119](README.assets/image-20210426094856119.png)
-
-    여기를 보면 어떤 핀들이 정의되어있는지 확인이 가능해진다
-
-- boards.c
-
-  - bsp_board_init()
-    - bsp_board_leds_init(), bsp_board_buttons_init()
-      - nrf_gpio_cfg_output() 이 함수를 통해 
-
-  ```c
-  //bsp_board_init 여기서
-  ```
-
-  
-
-#### Pinmap
-
-- 
-
-#### code
-
-
-
-## 2. UART
-
-
-
 
 
 # BLE 개발

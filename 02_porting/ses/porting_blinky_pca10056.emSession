@@ -40,7 +40,7 @@
  </Watch4>
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="61" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../src/main.c" selected="0" top="48" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="35" y="29" useTextEdit="1" openedFrom="D:/nordic/porting/src/main.c" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/components/boards/boards.c" selected="0" top="24" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="29" useTextEdit="1" openedFrom="D:/nordic/porting/src/main.c" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/components/boards/boards.c" selected="0" top="24" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="39" useTextEdit="1" openedFrom="D:/nRF5_SDK_17.0.0_9d13099/components/boards/boards.c" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/components/boards/pca10100.h" selected="0" top="39" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="695" useTextEdit="1" openedFrom="D:/nRF5_SDK_17.0.0_9d13099/components/boards/boards.c" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/modules/nrfx/hal/nrf_gpio.h" selected="0" top="675" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="40" useTextEdit="1" openedFrom="D:/nRF5_SDK_17.0.0_9d13099/components/boards/boards.c" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/components/boards/boards.h" selected="0" top="36" codecName="Default"/>
