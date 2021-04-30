@@ -124,35 +124,50 @@ static void gpio_init(void)
     err_code = nrf_drv_gpiote_init();
     APP_ERROR_CHECK(err_code);
 
-    nrf_drv_gpiote_out_config_t out_config = GPIOTE_CONFIG_OUT_SIMPLE(false);
+    nrf_drv_gpiote_out_config_t out_config = GPIOTE_CONFIG_OUT_SIMPLE(true);
     for (int i = 0; i < LEDS_NUMBER; i++)
     {
       err_code = nrf_drv_gpiote_out_init(LED_PIN_LIST[i], &out_config);
       APP_ERROR_CHECK(err_code);
     }
 
-    nrf_drv_gpiote_in_config_t in_config = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
-    in_config.pull = NRF_GPIO_PIN_PULLUP;
+
+    /* btn 1 rising/falling */
+    nrf_drv_gpiote_in_config_t in_config_1 = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
+    in_config_1.pull = NRF_GPIO_PIN_PULLUP;
     
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[0], &in_config, in_pin_1_handler);
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[0], &in_config_1, in_pin_1_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[0], true);     
-    nrf_delay_ms(10);    
+    nrf_delay_ms(1);    
 
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[1], &in_config, in_pin_2_handler);
+    /* btn 2 rising/falling */
+    nrf_drv_gpiote_in_config_t in_config_2 = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
+    in_config_2.pull = NRF_GPIO_PIN_PULLUP;
+
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[1], &in_config_2, in_pin_2_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[1], true);     
-    nrf_delay_ms(10);
+    nrf_delay_ms(1);
 
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[2], &in_config, in_pin_3_handler);
+
+    /* btn 3 high -> low , falling */
+    nrf_drv_gpiote_in_config_t in_config_3 = NRFX_GPIOTE_CONFIG_IN_SENSE_HITOLO(true);
+    in_config_3.pull = NRF_GPIO_PIN_PULLUP;
+
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[2], &in_config_3, in_pin_3_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[2], true);     
-    nrf_delay_ms(10);
+    nrf_delay_ms(1);
+
+    /* btn 4 low -> high , rising */
+    nrf_drv_gpiote_in_config_t in_config_4 = NRFX_GPIOTE_CONFIG_IN_SENSE_LOTOHI(true);
+    in_config_4.pull = NRF_GPIO_PIN_PULLUP;
     
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[3], &in_config, in_pin_4_handler);
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[3], &in_config_4, in_pin_4_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[3], true);     
-    nrf_delay_ms(10);
+    nrf_delay_ms(1);
 }
 
 
@@ -163,7 +178,6 @@ int main(void)
     bsp_board_init(BSP_INIT_BUTTONS);
 
     gpio_init();
-    bsp_board_leds_off();
     while (true)
     {                
         ;

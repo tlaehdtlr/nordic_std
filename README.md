@@ -302,7 +302,7 @@ https://igotit.tistory.com/244
     mergehex -m imedisync_ble_secure_bootloader_s140.hex imedisync_ble.hex n100_ble_settings.hex s140_nrf52_7.0.1_softdevice.hex -o n100_total.hex
     ```
 
-  - 이거할 때, nrf_command_line_tools 버전이 10.9는 [bootloader setting hex] 파일 받는 인자가 없어서 10.12.1 로 업그레이드 함
+  - 이거할 때, nrf_command_line_tools 버전이 10.9는 [bootloader setting hex] 파일 받는 인자가 없어서 10.12.1 로 업그레이드 함 (아님 10.11.1로 해야함)
 
     - 10.12.1 은 mergehex 를 했을 때, 자꾸 overlapping address 라고 나왔음
     - nrf connect programmer 로 4개 파일 add 하면 괜찮길래 mergehex 프로그램 문제라고 생각함 

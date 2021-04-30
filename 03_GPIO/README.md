@@ -128,13 +128,57 @@ int main(void)
 
 
 
-##### pin_change_int_pca10056 예제 분석
+#### pin_change_int_pca10056 예제 분석
 
 - https://infocenter.nordicsemi.com/topic/sdk_nrf5_v17.0.2/lib_gpiote.html 참고
-  - 근데 봐도 잘 모르겠다
   - 이벤트 등록하는걸 좀 잘 봐야겠다
+- gpio_init
+
+> nrfx_gpiote_init 
+>
+> - gpiote 초기화?
+
+##### interrupt output
+
+> nrf_drv_gpiote_out_init
+>
+> - 핀 번호와 config 인자를 받는다
+>
+> > config 는 GPIOTE_CONFIG_OUT_SIMPLE(arg)의 리턴값
+> >
+> > arg 가 false 면 초기 값에 low를 준다
+> >
+> > 보드의 LED는 `LEDS_ACTIVE_STATE 0 ` 이므로 active low 이므로 초기값에는 high 를 주어서 LED 가 꺼진 상태를 만들어준다
+> >
+> > 그 다음은 뭐 channel 과 task 를 등록하는 것 같다 나중에 더 분석해보자
+
+##### interrupt input
+
+> nrf_drv_gpiote_in_init 
+>
+> - interrupt 확인할 핀, 초기값,  콜백함수(핸들러) 등록한다
+>
+> > config 는 GPIOTE_CONFIG_IN_SENSE_HITOLO/LOTOHI/TOGGLE(arg)
+> >
+> > - falling, rising, fall/rise 이다 
+> > - arg 가 true 면, nrf_drv_gpiote_in_init 을 불렀을 때, nrf_gpiote_event_configure 함수를 부른다.
+> >   - 이벤트 등록하는 것 같다.
+>
+> > 핸들러 함수에 실행하고 싶은 동작 넣어준다
+> >
+> > - 이 함수의 인자를 어떻게 먹는지? 잘 모르겠다 추후 알아볼 예정
+>
+> nrf_drv_gpiote_in_event_enable
+>
+> - 채널에 이벤트 등록하는 것 같음
+> - 핀 번호 넣고, 이벤트 등록하려면 true 인자 전달한다.
 
 #### Code
+
+- 등록하는 부분만 남김 (전체 코드 확인하던지)
+- btn1,2  는 누를 때만 불 켜지게
+- btn3 은누르면 토글
+- btn4 는 누르고 올라올 때 토글
 
 ```c
 uint8_t LED_PIN_LIST[] = {BSP_LED_0, BSP_LED_1, BSP_LED_2, BSP_LED_3};
@@ -145,23 +189,6 @@ void in_pin_1_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
     nrf_drv_gpiote_out_toggle(LED_PIN_LIST[0]);            
 }
 
-void in_pin_2_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
-{    
-    nrf_drv_gpiote_out_toggle(LED_PIN_LIST[1]);            
-}
-
-void in_pin_3_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
-{    
-    nrf_drv_gpiote_out_toggle(LED_PIN_LIST[2]);            
-}
-
-void in_pin_4_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
-{    
-    nrf_drv_gpiote_out_toggle(LED_PIN_LIST[3]);            
-}
-
-
-
 static void gpio_init(void)
 {
     ret_code_t err_code;
@@ -169,35 +196,22 @@ static void gpio_init(void)
     err_code = nrf_drv_gpiote_init();
     APP_ERROR_CHECK(err_code);
 
-    nrf_drv_gpiote_out_config_t out_config = GPIOTE_CONFIG_OUT_SIMPLE(false);
+    nrf_drv_gpiote_out_config_t out_config = GPIOTE_CONFIG_OUT_SIMPLE(true);
     for (int i = 0; i < LEDS_NUMBER; i++)
     {
       err_code = nrf_drv_gpiote_out_init(LED_PIN_LIST[i], &out_config);
       APP_ERROR_CHECK(err_code);
     }
 
-    nrf_drv_gpiote_in_config_t in_config = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
-    in_config.pull = NRF_GPIO_PIN_PULLUP;
+
+    /* btn 1 rising/falling */
+    nrf_drv_gpiote_in_config_t in_config_1 = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
+    in_config_1.pull = NRF_GPIO_PIN_PULLUP;
     
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[0], &in_config, in_pin_1_handler);
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[0], &in_config_1, in_pin_1_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[0], true);     
-    nrf_delay_ms(10);    
-
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[1], &in_config, in_pin_2_handler);
-    APP_ERROR_CHECK(err_code);
-    nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[1], true);     
-    nrf_delay_ms(10);
-
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[2], &in_config, in_pin_3_handler);
-    APP_ERROR_CHECK(err_code);
-    nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[2], true);     
-    nrf_delay_ms(10);
-    
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[3], &in_config, in_pin_4_handler);
-    APP_ERROR_CHECK(err_code);
-    nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[3], true);     
-    nrf_delay_ms(10);
+    nrf_delay_ms(1);    
 }
 
 
@@ -224,9 +238,11 @@ int main(void)
 
 ## 참고 링크
 
+- 참고하지는 않았는데 여튼 나중에 보면 좋을수도 있어서 남김
+
 - https://igotit.tistory.com/2029
   - nRF52840 의 GPIO 핀 출력 속도 테스트함
   - 최대 출력 속도가 5MHz 였다고 함 (52833의 속도를 체크할 필요가 있다면 참고할 것)
 - https://igotit.tistory.com/2031
-  - GPIO 
+  - GPIO 레지스터를 분석 
 

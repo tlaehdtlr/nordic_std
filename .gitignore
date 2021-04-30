@@ -1,3 +1,6 @@
 Obj
 *.lst
 *.o
+*.elf
+*.hex
+*.map
