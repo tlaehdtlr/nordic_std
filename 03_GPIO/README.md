@@ -1,8 +1,15 @@
+# GPIO
+
+- GPIO 제어
+- Polling / Interrupt
+
+
+
 ## Product specification v1.0 참고
 
 #### 6.8 GPIO — General purpose input/output (137p)
 
-
+- GPIO 전체적인 설명이 나오는데 잘 모르겠지만 틈틈이 보는 것이 좋을 것 같다.
 
 #### 7.1 Hardware and layout (556p)
 
@@ -166,12 +173,26 @@ int main(void)
 >
 > > 핸들러 함수에 실행하고 싶은 동작 넣어준다
 > >
-> > - 이 함수의 인자를 어떻게 먹는지? 잘 모르겠다 추후 알아볼 예정
+> > - 이 함수는 함수 포인터에 의해 호출된다.
+> >   - 함수 포인터가 헷갈리면 https://norux.me/8 또는 https://coding-factory.tistory.com/638 참고
+> >   - **Nordic은 개발자가 쓸 콜백함수를 함수 포인터로 호출하게끔 부르는 것 같다**
+> >     - 반환형과 인자를 잘 지켜주어서 커스터마이징해주자
+> >   - 함수 포인터를 활용하여 구조체의 멤버 함수로 쓰인다.
 >
 > nrf_drv_gpiote_in_event_enable
 >
 > - 채널에 이벤트 등록하는 것 같음
 > - 핀 번호 넣고, 이벤트 등록하려면 true 인자 전달한다.
+
+#### 헤더파일 추가
+
+```c
+#include "nrf_drv_gpiote.h"
+#include "app_error.h"
+```
+
+- 얘네를 추가해주기 위해서 .emProject, config.h 수정해줘야한다.
+  - 비교하기 쉽게 WinMerge 라는 프로그램을 깔았다.
 
 #### Code
 
@@ -184,9 +205,28 @@ int main(void)
 uint8_t LED_PIN_LIST[] = {BSP_LED_0, BSP_LED_1, BSP_LED_2, BSP_LED_3};
 uint8_t BUTTON_PIN_LIST[] = {BSP_BUTTON_0, BSP_BUTTON_1, BSP_BUTTON_2, BSP_BUTTON_3};
 
-void in_pin_1_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
+void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
 {        
-    nrf_drv_gpiote_out_toggle(LED_PIN_LIST[0]);            
+    if (pin == BUTTON_PIN_LIST[0])
+    {
+      nrf_drv_gpiote_out_toggle(LED_PIN_LIST[0]);
+    }
+    else if (pin == BUTTON_PIN_LIST[1])
+    {
+      nrf_drv_gpiote_out_toggle(LED_PIN_LIST[1]);
+    }
+    else if (pin == BUTTON_PIN_LIST[2])
+    {
+      nrf_drv_gpiote_out_toggle(LED_PIN_LIST[2]);
+    }
+    else if (pin == BUTTON_PIN_LIST[3])
+    {
+      nrf_drv_gpiote_out_toggle(LED_PIN_LIST[3]);
+    }
+    else
+    {
+      bsp_board_leds_off();
+    }
 }
 
 static void gpio_init(void)
@@ -208,7 +248,7 @@ static void gpio_init(void)
     nrf_drv_gpiote_in_config_t in_config_1 = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
     in_config_1.pull = NRF_GPIO_PIN_PULLUP;
     
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[0], &in_config_1, in_pin_1_handler);
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[0], &in_config_1, in_pin_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[0], true);     
     nrf_delay_ms(1);    

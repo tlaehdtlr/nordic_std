@@ -92,29 +92,32 @@ int main(void)
 #elif defined(ver_interrupt)
 
 
-uint8_t LED_PIN_LIST[] = {BSP_LED_0, BSP_LED_1, BSP_LED_2, BSP_LED_3};
-uint8_t BUTTON_PIN_LIST[] = {BSP_BUTTON_0, BSP_BUTTON_1, BSP_BUTTON_2, BSP_BUTTON_3};
+uint8_t LED_PIN_LIST[4] = {BSP_LED_0, BSP_LED_1, BSP_LED_2, BSP_LED_3};
+uint8_t BUTTON_PIN_LIST[4] = {BSP_BUTTON_0, BSP_BUTTON_1, BSP_BUTTON_2, BSP_BUTTON_3};
 
-void in_pin_1_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
+void in_pin_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
 {        
-    nrf_drv_gpiote_out_toggle(LED_PIN_LIST[0]);            
+    if (pin == BUTTON_PIN_LIST[0])
+    {
+      nrf_drv_gpiote_out_toggle(LED_PIN_LIST[0]);
+    }
+    else if (pin == BUTTON_PIN_LIST[1])
+    {
+      nrf_drv_gpiote_out_toggle(LED_PIN_LIST[1]);
+    }
+    else if (pin == BUTTON_PIN_LIST[2])
+    {
+      nrf_drv_gpiote_out_toggle(LED_PIN_LIST[2]);
+    }
+    else if (pin == BUTTON_PIN_LIST[3])
+    {
+      nrf_drv_gpiote_out_toggle(LED_PIN_LIST[3]);
+    }
+    else
+    {
+      bsp_board_leds_off();
+    }
 }
-
-void in_pin_2_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
-{    
-    nrf_drv_gpiote_out_toggle(LED_PIN_LIST[1]);            
-}
-
-void in_pin_3_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
-{    
-    nrf_drv_gpiote_out_toggle(LED_PIN_LIST[2]);            
-}
-
-void in_pin_4_handler(nrf_drv_gpiote_pin_t pin, nrf_gpiote_polarity_t action)
-{    
-    nrf_drv_gpiote_out_toggle(LED_PIN_LIST[3]);            
-}
-
 
 
 static void gpio_init(void)
@@ -136,7 +139,7 @@ static void gpio_init(void)
     nrf_drv_gpiote_in_config_t in_config_1 = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
     in_config_1.pull = NRF_GPIO_PIN_PULLUP;
     
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[0], &in_config_1, in_pin_1_handler);
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[0], &in_config_1, in_pin_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[0], true);     
     nrf_delay_ms(1);    
@@ -145,7 +148,7 @@ static void gpio_init(void)
     nrf_drv_gpiote_in_config_t in_config_2 = GPIOTE_CONFIG_IN_SENSE_TOGGLE(true);
     in_config_2.pull = NRF_GPIO_PIN_PULLUP;
 
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[1], &in_config_2, in_pin_2_handler);
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[1], &in_config_2, in_pin_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[1], true);     
     nrf_delay_ms(1);
@@ -155,7 +158,7 @@ static void gpio_init(void)
     nrf_drv_gpiote_in_config_t in_config_3 = NRFX_GPIOTE_CONFIG_IN_SENSE_HITOLO(true);
     in_config_3.pull = NRF_GPIO_PIN_PULLUP;
 
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[2], &in_config_3, in_pin_3_handler);
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[2], &in_config_3, in_pin_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[2], true);     
     nrf_delay_ms(1);
@@ -164,7 +167,7 @@ static void gpio_init(void)
     nrf_drv_gpiote_in_config_t in_config_4 = NRFX_GPIOTE_CONFIG_IN_SENSE_LOTOHI(true);
     in_config_4.pull = NRF_GPIO_PIN_PULLUP;
     
-    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[3], &in_config_4, in_pin_4_handler);
+    err_code = nrf_drv_gpiote_in_init(BUTTON_PIN_LIST[3], &in_config_4, in_pin_handler);
     APP_ERROR_CHECK(err_code);
     nrf_drv_gpiote_in_event_enable(BUTTON_PIN_LIST[3], true);     
     nrf_delay_ms(1);
@@ -177,7 +180,7 @@ int main(void)
     bsp_board_init(BSP_INIT_LEDS);
     bsp_board_init(BSP_INIT_BUTTONS);
 
-    gpio_init();
+    gpio_init();       
     while (true)
     {                
         ;

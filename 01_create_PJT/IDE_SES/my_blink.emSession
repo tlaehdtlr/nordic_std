@@ -38,7 +38,7 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="65" y="34" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/components/libraries/util/sdk_common.h" selected="1" top="13" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="39" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/components/libraries/util/sdk_common.h" selected="1" top="13" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="44" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/integration/nrfx/nrfx_config.h" selected="0" top="5" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="my_blink" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="D:/Projects/iSW/imedisync_ble/app/build/ses" debugSearchPath="" autoConnectCapabilities="3711"/>

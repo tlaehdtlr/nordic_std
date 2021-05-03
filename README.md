@@ -1,8 +1,8 @@
-***:bulb: 여기 README 는  개발환경 설정, 참고한 개념, 링크, 내가 만난 에러들을 남긴다. 하위 디렉토리는 프로젝트와 세부 설명 README 로 구성된다.***
+**:bulb: 여기 README 는  개발환경 설정, 참고한 개념, 링크, 하위 디렉토리의 간단한 설명, 내가 만난 에러들을 남긴다. 하위 디렉토리는 프로젝트와 세부 설명 README 로 구성된다.**
 
 
 
-# Nordic
+# :sunrise: Nordic
 
 - nRF52833 DK board, PCA10100
 - pca 넘버는 SDK 에서 nRF52833 을 가르키는 번호일 것 같음
@@ -154,9 +154,9 @@ https://igotit.tistory.com/244
 
 
 
-# Peripheral 예제
+# :sunny: SDK 사용법
 
-
+- 
 
 ## 0. 프리컴파일 된 예제 돌려보기
 
@@ -236,11 +236,11 @@ https://igotit.tistory.com/244
   project Name
   ```
 
-- pca 및 nRF 번호 바꾸기
+- pca 및 nRF 번호 바꾸기 (pca10100, nRF52833)
 
   > arm_target_device_name="***nRF52840_xxAA***"
   >
-  > c_preprocessor_definitions="***BOARD_PCA10056***;BSP_DEFINES_ONLY;CONFIG_GPIO_AS_PINRESET;FLOAT_ABI_HARD;INITIALIZE_USER_SECTIONS;NO_VTOR_CONFIG;***NRF52840_XXAA***;"
+  > fc_preprocessor_definitions="***BOARD_PCA10056***;BSP_DEFINES_ONLY;CONFIG_GPIO_AS_PINRESET;FLOAT_ABI_HARD;INITIALIZE_USER_SECTIONS;NO_VTOR_CONFIG;***NRF52840_XXAA***;"
   >
   > debug_register_definition_file="../../../../../../modules/nrfx/mdk/***nrf52840***.svd"
   >
@@ -250,20 +250,49 @@ https://igotit.tistory.com/244
 
 - 메모리 관련 밑에걸루 복붙해서 바꿔주기 (nRF52833 꺼임)
 
-  > inker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x20000;FLASH_START=0x27000;FLASH_SIZE=0x59000;RAM_START=0x20003278;RAM_SIZE=0x1cd88"
+  > linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x20000;FLASH_START=0x27000;FLASH_SIZE=0x59000;RAM_START=0x20003278;RAM_SIZE=0x1cd88"
   > linker_section_placements_segments="FLASH RX 0x0 0x80000;RAM RWX 0x20000000 0x20000"
+  
+  - 10056 을 10100 으로 포팅할 때 이렇게 하는 것 같음
+  - 10100 이나 10100e 를 처음부터 썼으면 저거 건드리지 않고 사용하면 되는듯
+  - 지금 정확하지 않은 부분들이 있음 (gpio 부분은 건드려도 됐는데 uart 는 건드리니까 안되고...)
 
 
 
+# :sunny: peripheral 예제
 
 
-# BLE 개발
+
+## 3. GPIO(button, led), Interrupt(event, task)
+
+- nRF5_SDK_17.0.0_9d13099\examples\peripheral\blinky\pca10100e 기반 시작
+  - GPIO 핀 설정하는 것에 대한 학습 (button, led 는 간단한 input, output 의 경우임)
+  - polling 방식
+- nRF5_SDK_17.0.0_9d13099\examples\peripheral\pin_change_int\pca10056 코드 활용
+  - interrupt 모드에 대한 학습
+    - task, event
+  - 기존 코드에 추가하는 방식의 포팅
+
+
+
+## 4. UART
+
+- nRF5_SDK_17.0.0_9d13099\examples\peripheral\uart\pca10100
+  - UART 기본 설정, 입출력제어
+
+
+
+## 5. UARTE
+
+- nRF5_SDK_17.0.0_9d13099\examples\peripheral\libuarte\pca10056
+  - uart with EasyDMA
+
+
+
+# :moon: BLE 개발
 
 - BLE 이해 : http://www.hardcopyworld.com/gnuboard5/bbs/board.php?bo_table=lecture_iot&wr_id=11
   - link layer 의 software 레벨에서 블루투스 기기간 통신 및 연결 상태 관리한대
-  - 
-
-
 
 
 
@@ -345,7 +374,7 @@ nrfjprog -f nrf52 --reset --program [hex 파일] --chiperase --verify
 
 
 
-# 내가 만난 에러들
+# :angry: 내가 만난 에러들
 
 #### 빌드하는데 터미널에 undefined reference to `__stack_end__'
 
