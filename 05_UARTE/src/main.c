@@ -56,11 +56,13 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 #include "nrf_queue.h"
+#include "nrf_delay.h"
 
 NRF_LIBUARTE_ASYNC_DEFINE(libuarte, 0, 0, 0, NRF_LIBUARTE_PERIPHERAL_NOT_USED, 255, 3);
 
 static uint8_t text[] = "UART example started.\r\n Loopback:\r\n";
 static uint8_t text_size = sizeof(text);
+
 static volatile bool m_loopback_phase;
 
 typedef struct {
@@ -69,6 +71,7 @@ typedef struct {
 } buffer_t;
 
 NRF_QUEUE_DEF(buffer_t, m_buf_queue, 10, NRF_QUEUE_MODE_NO_OVERFLOW);
+
 
 void uart_event_handler(void * context, nrf_libuarte_async_evt_t * p_evt)
 {
@@ -88,7 +91,6 @@ void uart_event_handler(void * context, nrf_libuarte_async_evt_t * p_evt)
                     .p_data = p_evt->data.rxtx.p_data,
                     .length = p_evt->data.rxtx.length,
                 };
-
                 ret = nrf_queue_push(&m_buf_queue, &buf);
                 APP_ERROR_CHECK(ret);
             }
@@ -96,6 +98,7 @@ void uart_event_handler(void * context, nrf_libuarte_async_evt_t * p_evt)
             {
                 APP_ERROR_CHECK(ret);
             }
+            
             bsp_board_led_invert(1);
             m_loopback_phase = true;
             break;
@@ -109,7 +112,7 @@ void uart_event_handler(void * context, nrf_libuarte_async_evt_t * p_evt)
                     ret = nrf_queue_pop(&m_buf_queue, &buf);
                     APP_ERROR_CHECK(ret);
                     UNUSED_RETURN_VALUE(nrf_libuarte_async_tx(p_libuarte, buf.p_data, buf.length));
-                }
+                }                
             }
             bsp_board_led_invert(2);
             break;
@@ -125,6 +128,9 @@ int main(void)
 {
     bsp_board_init(BSP_INIT_LEDS);
     
+    bsp_board_leds_on();
+    nrf_delay_ms(1000);
+
     ret_code_t ret = nrf_drv_clock_init();
     APP_ERROR_CHECK(ret);
   
@@ -148,15 +154,13 @@ int main(void)
     err_code = nrf_libuarte_async_init(&libuarte, &nrf_libuarte_async_config, uart_event_handler, (void *)&libuarte);
 
     APP_ERROR_CHECK(err_code);
-
     nrf_libuarte_async_enable(&libuarte);
-
     err_code = nrf_libuarte_async_tx(&libuarte, text, text_size);
-    APP_ERROR_CHECK(err_code);
+    APP_ERROR_CHECK(err_code);    
     
     while (true)
-    {
-        NRF_LOG_FLUSH();
+    {                
+        NRF_LOG_FLUSH();                        
     }
 }
 

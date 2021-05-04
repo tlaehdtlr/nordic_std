@@ -60,7 +60,7 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="28" y="90" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../src/main.c" selected="1" top="114" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="64" y="69" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../src/main.c" selected="1" top="27" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="90" useTextEdit="1" openedFrom="D:/nordic/04_UART/src/main.c" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/components/boards/pca10100.h" selected="0" top="66" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="204" useTextEdit="1" openedFrom="D:/nordic/04_UART/src/main.c" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/components/libraries/uart/app_uart_fifo.c" selected="0" top="187" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="43" useTextEdit="1" openedFrom="D:/nRF5_SDK_17.0.0_9d13099/components/libraries/uart/app_uart_fifo.c" useBinaryEdit="0" left="0" path="D:/nRF5_SDK_17.0.0_9d13099/components/libraries/fifo/app_fifo.c" selected="0" top="27" codecName="Default"/>

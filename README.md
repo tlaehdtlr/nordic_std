@@ -51,6 +51,10 @@ https://igotit.tistory.com/244
 
 - nFR52833_OPS_v0.7.pdf 에 memory map 이 있음 peripheral 들이 있다
 
+- getting_started_nRF5SDK_ses.pdf 를 보면 처음 개발환경 세팅에 관한 것들이 나온다
+
+  - header file, preprocessor 
+
 
 
 ## development setting
@@ -248,14 +252,11 @@ https://igotit.tistory.com/244
   >
   > <file file_name="../../../../../../modules/nrfx/mdk/***system_nrf52840***.c" />
 
-- 메모리 관련 밑에걸루 복붙해서 바꿔주기 (nRF52833 꺼임)
+- 메모리 관련 밑에걸루 복붙해서 바꿔주기 (nRF52833 우선은 스펙 되는대로 꽉꽉 쓰기)
 
-  > linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x20000;FLASH_START=0x27000;FLASH_SIZE=0x59000;RAM_START=0x20003278;RAM_SIZE=0x1cd88"
+  > linker_section_placement_macros="FLASH_PH_START=0x0;FLASH_PH_SIZE=0x80000;RAM_PH_START=0x20000000;RAM_PH_SIZE=0x20000;FLASH_START=0x0;FLASH_SIZE=0x80000;RAM_START=0x20000000;RAM_SIZE=0x20000"     
+  >
   > linker_section_placements_segments="FLASH RX 0x0 0x80000;RAM RWX 0x20000000 0x20000"
-  
-  - 10056 을 10100 으로 포팅할 때 이렇게 하는 것 같음
-  - 10100 이나 10100e 를 처음부터 썼으면 저거 건드리지 않고 사용하면 되는듯
-  - 지금 정확하지 않은 부분들이 있음 (gpio 부분은 건드려도 됐는데 uart 는 건드리니까 안되고...)
 
 
 
