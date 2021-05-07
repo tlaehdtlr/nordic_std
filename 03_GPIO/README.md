@@ -157,7 +157,7 @@ int main(void)
 > >
 > > 보드의 LED는 `LEDS_ACTIVE_STATE 0 ` 이므로 active low 이므로 초기값에는 high 를 주어서 LED 가 꺼진 상태를 만들어준다
 > >
-> > 그 다음은 뭐 channel 과 task 를 등록하는 것 같다 나중에 더 분석해보자
+> > GPIOTE_CONFIG_OUT_SIMPLE 는 무조건 config의 task_pin 을 false 로 만들어서 task 를 쓰지 않는다. (GPIOTE를 쓰지 않는다.)
 
 ##### interrupt input
 
@@ -181,7 +181,7 @@ int main(void)
 >
 > nrf_drv_gpiote_in_event_enable
 >
-> - 채널에 이벤트 등록하는 것 같음
+> - 인터럽트 이벤트를 활성화 시킨다.
 > - 핀 번호 넣고, 이벤트 등록하려면 true 인자 전달한다.
 
 #### 헤더파일 추가
@@ -262,7 +262,6 @@ int main(void)
     bsp_board_init(BSP_INIT_BUTTONS);
 
     gpio_init();
-    bsp_board_leds_off();
     while (true)
     {                
         ;

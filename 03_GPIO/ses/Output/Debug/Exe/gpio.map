@@ -229,6 +229,7 @@ Discarded input sections
  .group         0x0000000000000000        0xc Output/gpio Debug/Obj/boards.o
  .group         0x0000000000000000        0xc Output/gpio Debug/Obj/boards.o
  .group         0x0000000000000000        0xc Output/gpio Debug/Obj/boards.o
+ .group         0x0000000000000000        0xc Output/gpio Debug/Obj/boards.o
  .text          0x0000000000000000        0x0 Output/gpio Debug/Obj/boards.o
  .data          0x0000000000000000        0x0 Output/gpio Debug/Obj/boards.o
  .bss           0x0000000000000000        0x0 Output/gpio Debug/Obj/boards.o
@@ -7296,18 +7297,18 @@ OUTPUT(Output/Debug/Exe/gpio.elf elf32-littlearm)
  .comment       0x0000000000000047       0x48 Output/gpio Debug/Obj/main.o
  .comment       0x0000000000000047       0x48 Output/gpio Debug/Obj/system_nrf52820.o
 
-.debug_line     0x0000000000000000     0xe7b1
+.debug_line     0x0000000000000000     0xe7f7
  .debug_line    0x0000000000000000      0x1fe Output/gpio Debug/Obj/thumb_crt0.o
- .debug_line    0x00000000000001fe     0x3391 Output/gpio Debug/Obj/boards.o
- .debug_line    0x000000000000358f      0x37e Output/gpio Debug/Obj/app_error.o
- .debug_line    0x000000000000390d      0x36e Output/gpio Debug/Obj/app_error_handler_gcc.o
- .debug_line    0x0000000000003c7b      0x550 Output/gpio Debug/Obj/app_error_weak.o
- .debug_line    0x00000000000041cb      0x2fb Output/gpio Debug/Obj/nrf_assert.o
- .debug_line    0x00000000000044c6     0x4243 Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_line    0x0000000000008709     0x31c1 Output/gpio Debug/Obj/main.o
- .debug_line    0x000000000000b8ca       0x80 Output/gpio Debug/Obj/ses_startup_nrf52820.o
- .debug_line    0x000000000000b94a       0x96 Output/gpio Debug/Obj/ses_startup_nrf_common.o
- .debug_line    0x000000000000b9e0     0x2dd1 Output/gpio Debug/Obj/system_nrf52820.o
+ .debug_line    0x00000000000001fe     0x33d7 Output/gpio Debug/Obj/boards.o
+ .debug_line    0x00000000000035d5      0x37e Output/gpio Debug/Obj/app_error.o
+ .debug_line    0x0000000000003953      0x36e Output/gpio Debug/Obj/app_error_handler_gcc.o
+ .debug_line    0x0000000000003cc1      0x550 Output/gpio Debug/Obj/app_error_weak.o
+ .debug_line    0x0000000000004211      0x2fb Output/gpio Debug/Obj/nrf_assert.o
+ .debug_line    0x000000000000450c     0x4243 Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_line    0x000000000000874f     0x31c1 Output/gpio Debug/Obj/main.o
+ .debug_line    0x000000000000b910       0x80 Output/gpio Debug/Obj/ses_startup_nrf52820.o
+ .debug_line    0x000000000000b990       0x96 Output/gpio Debug/Obj/ses_startup_nrf_common.o
+ .debug_line    0x000000000000ba26     0x2dd1 Output/gpio Debug/Obj/system_nrf52820.o
 
 .debug_info     0x0000000000000000     0xf9f5
  .debug_info    0x0000000000000000       0x22 Output/gpio Debug/Obj/thumb_crt0.o
@@ -7361,19 +7362,19 @@ OUTPUT(Output/Debug/Exe/gpio.elf elf32-littlearm)
 
 .debug_str      0x0000000000000000    0x6d986
  .debug_str     0x0000000000000000       0x75 Output/gpio Debug/Obj/thumb_crt0.o
- .debug_str     0x0000000000000075    0x67a2c Output/gpio Debug/Obj/boards.o
-                                      0x67eef (size before relaxing)
- .debug_str     0x0000000000067aa1      0x110 Output/gpio Debug/Obj/app_error.o
+ .debug_str     0x0000000000000075    0x67a67 Output/gpio Debug/Obj/boards.o
+                                      0x67f2a (size before relaxing)
+ .debug_str     0x0000000000067adc      0x110 Output/gpio Debug/Obj/app_error.o
                                       0x59536 (size before relaxing)
- .debug_str     0x0000000000067bb1      0x573 Output/gpio Debug/Obj/app_error_handler_gcc.o
+ .debug_str     0x0000000000067bec      0x573 Output/gpio Debug/Obj/app_error_handler_gcc.o
                                       0x63233 (size before relaxing)
- .debug_str     0x0000000000068124     0x2d65 Output/gpio Debug/Obj/app_error_weak.o
+ .debug_str     0x000000000006815f     0x2d65 Output/gpio Debug/Obj/app_error_weak.o
                                       0x662ad (size before relaxing)
- .debug_str     0x000000000006ae89       0x56 Output/gpio Debug/Obj/nrf_assert.o
+ .debug_str     0x000000000006aec4       0x56 Output/gpio Debug/Obj/nrf_assert.o
                                       0x5954a (size before relaxing)
- .debug_str     0x000000000006aedf     0x1c9d Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_str     0x000000000006af1a     0x1c9d Output/gpio Debug/Obj/nrfx_gpiote.o
                                       0x6b803 (size before relaxing)
- .debug_str     0x000000000006cb7c      0x902 Output/gpio Debug/Obj/main.o
+ .debug_str     0x000000000006cbb7      0x8c7 Output/gpio Debug/Obj/main.o
                                       0x68c4b (size before relaxing)
  .debug_str     0x000000000006d47e       0x43 Output/gpio Debug/Obj/ses_startup_nrf52820.o
                                          0x67 (size before relaxing)
@@ -7441,54 +7442,55 @@ OUTPUT(Output/Debug/Exe/gpio.elf elf32-littlearm)
  .debug_pubtypes
                 0x0000000000001110      0x182 Output/gpio Debug/Obj/system_nrf52820.o
 
-.debug_macro    0x0000000000000000     0x229d
- .debug_macro   0x0000000000000000      0x26b Output/gpio Debug/Obj/boards.o
- .debug_macro   0x000000000000026b       0x1c Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000287      0x101 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000388       0x1f Output/gpio Debug/Obj/boards.o
- .debug_macro   0x00000000000003a7      0x2dd Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000684       0x59 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x00000000000006dd       0x81 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x000000000000075e       0xdc Output/gpio Debug/Obj/boards.o
- .debug_macro   0x000000000000083a       0x3f Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000879       0x72 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x00000000000008eb       0x49 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000934       0x8c Output/gpio Debug/Obj/boards.o
- .debug_macro   0x00000000000009c0       0x19 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x00000000000009d9       0x16 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x00000000000009ef       0x35 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000a24       0x7b Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000a9f       0x64 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000b03       0x20 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000b23       0x10 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000b33       0x10 Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000b43      0x1df Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000d22      0x16d Output/gpio Debug/Obj/boards.o
- .debug_macro   0x0000000000000e8f      0x10e Output/gpio Debug/Obj/app_error.o
- .debug_macro   0x0000000000000f9d       0x78 Output/gpio Debug/Obj/app_error.o
- .debug_macro   0x0000000000001015      0x167 Output/gpio Debug/Obj/app_error_handler_gcc.o
- .debug_macro   0x000000000000117c      0x1fb Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x0000000000001377       0x31 Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x00000000000013a8       0x16 Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x00000000000013be       0x55 Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x0000000000001413      0x17f Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x0000000000001592       0x9a Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x000000000000162c       0x28 Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x0000000000001654       0x23 Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x0000000000001677       0x1c Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x0000000000001693       0x92 Output/gpio Debug/Obj/app_error_weak.o
- .debug_macro   0x0000000000001725      0x11d Output/gpio Debug/Obj/nrf_assert.o
- .debug_macro   0x0000000000001842       0x10 Output/gpio Debug/Obj/nrf_assert.o
- .debug_macro   0x0000000000001852      0x33b Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001b8d       0x17 Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001ba4       0x16 Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001bba       0x45 Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001bff       0x16 Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001c15       0x1c Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001c31       0x37 Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001c68       0x10 Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001c78      0x179 Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001df1       0x42 Output/gpio Debug/Obj/nrfx_gpiote.o
- .debug_macro   0x0000000000001e33      0x2aa Output/gpio Debug/Obj/main.o
- .debug_macro   0x00000000000020dd       0xcc Output/gpio Debug/Obj/main.o
- .debug_macro   0x00000000000021a9       0xf4 Output/gpio Debug/Obj/system_nrf52820.o
+.debug_macro    0x0000000000000000     0x22b6
+ .debug_macro   0x0000000000000000      0x274 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000274       0x1c Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000290      0x101 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000391       0x1f Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x00000000000003b0      0x2dd Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x000000000000068d       0x59 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x00000000000006e6       0x81 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000767       0xdc Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000843       0x3f Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000882       0x72 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x00000000000008f4       0x49 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x000000000000093d       0x8c Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x00000000000009c9       0x19 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x00000000000009e2       0x16 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x00000000000009f8       0x35 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000a2d       0x7b Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000aa8       0x64 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000b0c       0x20 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000b2c       0x10 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000b3c       0x10 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000b4c      0x1df Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000d2b      0x16d Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000e98       0x10 Output/gpio Debug/Obj/boards.o
+ .debug_macro   0x0000000000000ea8      0x10e Output/gpio Debug/Obj/app_error.o
+ .debug_macro   0x0000000000000fb6       0x78 Output/gpio Debug/Obj/app_error.o
+ .debug_macro   0x000000000000102e      0x167 Output/gpio Debug/Obj/app_error_handler_gcc.o
+ .debug_macro   0x0000000000001195      0x1fb Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x0000000000001390       0x31 Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x00000000000013c1       0x16 Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x00000000000013d7       0x55 Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x000000000000142c      0x17f Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x00000000000015ab       0x9a Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x0000000000001645       0x28 Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x000000000000166d       0x23 Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x0000000000001690       0x1c Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x00000000000016ac       0x92 Output/gpio Debug/Obj/app_error_weak.o
+ .debug_macro   0x000000000000173e      0x11d Output/gpio Debug/Obj/nrf_assert.o
+ .debug_macro   0x000000000000185b       0x10 Output/gpio Debug/Obj/nrf_assert.o
+ .debug_macro   0x000000000000186b      0x33b Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001ba6       0x17 Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001bbd       0x16 Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001bd3       0x45 Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001c18       0x16 Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001c2e       0x1c Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001c4a       0x37 Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001c81       0x10 Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001c91      0x179 Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001e0a       0x42 Output/gpio Debug/Obj/nrfx_gpiote.o
+ .debug_macro   0x0000000000001e4c      0x2aa Output/gpio Debug/Obj/main.o
+ .debug_macro   0x00000000000020f6       0xcc Output/gpio Debug/Obj/main.o
+ .debug_macro   0x00000000000021c2       0xf4 Output/gpio Debug/Obj/system_nrf52820.o

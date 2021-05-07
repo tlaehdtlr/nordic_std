@@ -226,7 +226,7 @@ https://igotit.tistory.com/244
 
 ## 2. 포팅
 
-- pca10100 과 비슷한 pca10056 blinky 포팅해보기
+- pca10400 예제를 실행시켜보면 대부분 동작한다. (RAM, Flash size는 가장 작기 때문에 nRF52 다 됨)
 
 - 기본적으로 SDK 경로로 바꾸는 작업, application, include 경로 맞추고, 솔루션명과 프로젝트명도 바꾸기
 
