@@ -290,6 +290,20 @@ https://igotit.tistory.com/244
 
 
 
+## 6. custom board
+
+- 핀 설정 내 마음대로
+
+
+
+## 7.  uart and custom
+
+- 앞에 했던거 정리해서 blinky 예제 base project 로 구성
+
+
+
+
+
 # :moon: BLE 개발
 
 - BLE 이해 : http://www.hardcopyworld.com/gnuboard5/bbs/board.php?bo_table=lecture_iot&wr_id=11

@@ -27,6 +27,47 @@
 
 
 
+### Interrupt
+
+- nRF52833_PS 의 97p 6.1.8 Interrupts 참고
+  - 모든 peripheral 들은 인터럽트 가능
+  - 인터럽트는 이벤트에 의해 발생
+  - peripheral의 ID 를 NVIC(nested vectored interrupt controller)의 interrupt number 에 연결해준다
+  - INTEN, INTENSET, INTENCLR 레지스터 사용한다.
+    - 어떤건 INTENSET, INTENCLR 2개만 사용하기도 한다?
+  - 여튼 task, event, shortcut, interrupt 처리방식을 알면 좋을 것 같긴하다
+    ![image-20210429141957209](README.assets/image-20210429141957209.png)
+
+- 어쨌든 GPIO 핀을 task 와 event 를 이용하고 싶다면 GPIOTE 를 사용해야한다. (nRF52833_PS 145p, 6.9참고)
+- GPIOTE (GPIO Task and Event)
+  - GPIOTE 채널 수는 8개다
+  - 각 GPIOTE 채널은 3개 task 사용가능하고
+    - 2개 task 는 set, clear 가능
+    - 1개 task(out)은 set, clear, toggle 가능
+  - 각 GPIOTE 채널에서 발생되는 이벤트는 rising edge, falling edge, any change 3개다
+
+
+
+#### GPIOTE
+
+- https://igotit.tistory.com/entry/nRF52-GPIOTE-GPIO-tasks-and-events 참고
+
+
+
+#### PPI (Programmable peripheral interconnect)
+
+- PS 와 https://igotit.tistory.com/1697 참고
+- peripheral 들간 task, event 상호작용이 CPU 개입없이 이뤄지는것
+- 하드웨어적으로 EEP(event end point), TEP(task end point) 가 고정된 채널들이 있다. (채널들 활성화/비활성화 가능)
+
+
+
+
+
+
+
+
+
 ## GPIO SDK
 
 - nRF5_SDK_17.0.0_9d13099\examples\peripheral\blinky\pca10100e 분석
@@ -114,31 +155,13 @@ int main(void)
 
 
 
-### EXTI
-
-- nRF52833_PS 의 97p 6.1.8 Interrupts 참고
-  - 모든 peripheral 들은 인터럽트 가능
-  - 인터럽트는 이벤트에 의해 발생
-  - peripheral의 ID 를 NVIC(nested vectored interrupt controller)의 interrupt number 에 연결해준다
-  - INTEN, INTENSET, INTENCLR 레지스터 사용한다.
-    - 어떤건 INTENSET, INTENCLR 2개만 사용하기도 한다?
-  - 여튼 task, event, shortcut, interrupt 처리방식을 알면 좋을 것 같긴하다
-    ![image-20210429141957209](README.assets/image-20210429141957209.png)
-
-- 어쨌든 GPIO 핀을 task 와 event 를 이용하고 싶다면 GPIOTE 를 사용해야한다. (nRF52833_PS 145p, 6.9참고)
-- GPIOTE (GPIO Task and Event)
-  - GPIOTE 채널 수는 8개다
-  - 각 GPIOTE 채널은 3개 task 사용가능하고
-    - 2개 task 는 set, clear 가능
-    - 1개 task(out)은 set, clear, toggle 가능
-  - 각 GPIOTE 채널에서 발생되는 이벤트는 rising edge, falling edge, any change 3개다
 
 
-
-#### pin_change_int_pca10056 예제 분석
+### pin_change_int_pca10056 예제 분석
 
 - https://infocenter.nordicsemi.com/topic/sdk_nrf5_v17.0.2/lib_gpiote.html 참고
   - 이벤트 등록하는걸 좀 잘 봐야겠다
+
 - gpio_init
 
 > nrfx_gpiote_init 
