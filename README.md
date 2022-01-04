@@ -333,7 +333,7 @@ https://igotit.tistory.com/244
     ```
 
   - ```
-    nrfutil settings generate --family NRF52 --application imedisync_ble.hex --app-boot-validation VALIDATE_GENERATED_CRC --application-version 1 --bootloader-version 1 --softdevice s140_nrf52_7.0.1_softdevice.hex --bl-settings-version 2 n100_ble_settings.hex
+    nrfutil settings generate --family NRF52 --application n100_ble.hex --app-boot-validation VALIDATE_GENERATED_CRC --application-version 1 --bootloader-version 1 --softdevice s140_nrf52_7.0.1_softdevice.hex --bl-settings-version 2 n100_ble_settings.hex
     ```
 
 - total image 생성
@@ -343,7 +343,7 @@ https://igotit.tistory.com/244
     ```
 
   - ```
-    mergehex -m imedisync_ble_secure_bootloader_s140.hex imedisync_ble.hex n100_ble_settings.hex s140_nrf52_7.0.1_softdevice.hex -o n100_total.hex
+    mergehex -m n100_ble_secure_bootloader_s140.hex n100_ble.hex n100_ble_settings.hex s140_nrf52_7.0.1_softdevice.hex -o n100_total.hex
     ```
 
   - 이거할 때, nrf_command_line_tools 버전이 10.9는 [bootloader setting hex] 파일 받는 인자가 없어서 10.12.1 로 업그레이드 함 (아님 10.11.1로 해야함)
@@ -370,7 +370,45 @@ https://igotit.tistory.com/244
 nrfjprog -f nrf52 --reset --program [hex 파일] --chiperase --verify
 ```
 
-### DFU (Device Firmware Update)
+```
+nrfjprog -f nrf52 --reset --program n100_total.hex --chiperase --verify
+```
+
+### DFU (OTA, on the air)
+
+#### private/public key 생성
+
+- private key 를 pem 파일로 생성
+
+  ```
+  nrfutil keys generate private.pem
+  ```
+
+- 소스 코드 형식(c code) public key 생성
+
+  ```
+  nrfutil keys display --key pk --format code private.pem --out_file public_key.c
+  ```
+
+- dfu_public_key.c 에 public_key.c 코드를 복붙
+
+
+
+#### DFU pkg 파일 생성
+
+- ```
+  nrfutil pkg generate --hw-version 52 --debug-mode --application [application hex file] --sd-req 0xCA --key-file [private key file] [output.zip]
+  ```
+
+  ```
+  nrfutil pkg generate --hw-version 52 --debug-mode --application n100_ble.hex --sd-req 0xCA --key-file priv.pem n100_ble_pkg.zip
+  ```
+
+  
+
+- 
+
+
 
 - 폰 등에서 nRF Connect APP 실행
   - DFU 용 zip 파일 필요

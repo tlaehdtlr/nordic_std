@@ -2,6 +2,16 @@
 
 
 
+#### 튜토리얼
+
+```
+https://devzone.nordicsemi.com/nordic/short-range-guides/b/software-development-kit/posts/application-timer-tutorial
+```
+
+
+
+
+
 - nRF52833_PS_v1.0 의 6.28 timer 참고
 
 ![image-20210510140912756](README.assets/image-20210510140912756.png)

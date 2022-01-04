@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\..\\nRF5_SDK\\nRF5_SDK_17.0.0_9d13099"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"nrf_log.h": "c",
+			"nrf_gpio.h": "c",
+			"freertos.h": "c",
+			"nrf_drv_clock.h": "c",
+			"nrf_peripherals.h": "c",
+			"nrf52833_peripherals.h": "c",
+			"uart.h": "c",
+			"app_error.h": "c",
+			"freertosconfig.h": "c",
+			"task_led.h": "c",
+			"nrf_cli.h": "c",
+			"nordic_common.h": "c",
+			"nrf_error.h": "c"
+		}
+	}
+}

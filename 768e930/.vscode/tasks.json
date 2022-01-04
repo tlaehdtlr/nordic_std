@@ -1,0 +1,116 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build debug",
+            "type": "shell",
+            "command": "make -j8 all DEBUG=1",
+            "options": {
+                "cwd": "${workspaceFolder}/app/build/armgcc"
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
+        },
+        {
+            "label": "build total",
+            "type": "shell",
+            "command": "make total",
+            "options": {
+                "cwd": "${workspaceFolder}/app/build/armgcc"
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            },
+            "dependsOn": ["build debug"]
+        },
+        {
+            "label": "build dfu",
+            "type": "shell",
+            "command": "make dfu",
+            "options": {
+                "cwd": "${workspaceFolder}/app/build/armgcc"
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            },
+            "dependsOn": ["build debug"]
+        },
+        {
+            "label": "build release",
+            "type": "shell",
+            "command": "make -j8 all DEBUG=0",
+            "options": {
+                "cwd": "${workspaceFolder}/app/build/armgcc"
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "make clean",
+            "options": {
+                "cwd": "${workspaceFolder}/app/build/armgcc"
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
+        },
+        {
+            "label": "build & run",
+            "type": "shell",
+            "command": "make flash",
+            "options": {
+                "cwd": "${workspaceFolder}/app/build/armgcc"
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            },
+            "dependsOn": ["build total"]
+        },
+        {
+            "label": "sdk_config",
+            "type": "shell",
+            "command": "make sdk_config",
+            "options": {
+                "cwd": "${workspaceFolder}/app/build/armgcc"
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
+        },
+        {
+            "label": "app_config",
+            "type": "shell",
+            "command": "make app_config",
+            "options": {
+                "cwd": "${workspaceFolder}/app/build/armgcc"
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
+        },
+        {
+            "label": "board_config",
+            "type": "shell",
+            "command": "make board_config",
+            "options": {
+                "cwd": "${workspaceFolder}/app/build/armgcc"
+            },
+            "presentation": {
+                "reveal": "always",
+                "clear": true
+            }
+        }
+    ]
+}

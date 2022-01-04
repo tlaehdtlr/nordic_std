@@ -1,0 +1,11 @@
+app/build/armgcc/_build
+
+app/build/ses/Output/
+app/build/ses/*.jlink
+app/build/ses/*.emSession
+
+app/build/dfu/output
+
+bootloader/build/ses/Output/
+bootloader/build/ses/*.jlink
+bootloader/build/ses/*.emSession

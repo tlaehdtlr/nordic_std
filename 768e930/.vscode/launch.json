@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/armgcc/_build/n100_ble.out",
+            "configFiles": [
+                "./build/nordic_nrf52_dk.cfg"
+            ],
+            "name": "Debug (OpenOCD)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "device": "nrf52",
+            "servertype": "openocd",
+            "svdFile": "${workspaceRoot}/build/nrf52833.svd"
+        },
+        {
+            "name": "Debug (J-Link)",
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/armgcc/_build/n100_ble.out",
+            "type": "cortex-debug",
+            "request": "launch",
+            "device": "nrf52",
+            "servertype": "jlink",
+            "svdFile": "${workspaceRoot}/build/nrf52833.svd"
+        }
+    ]
+}
